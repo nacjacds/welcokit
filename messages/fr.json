@@ -362,7 +362,7 @@
         "downloadPng": "Télécharger en PNG"
       },
       "guestLinks": {
-        "generateLink": "Liens pour voyageurs",
+        "generateLink": "Créer un lien personnalisé pour ton voyageur",
         "dialogTitle": "Liens pour voyageurs",
         "dialogDescription": "Crée un lien unique pour les dates de séjour d'un voyageur. Il cesse automatiquement de fonctionner après le check-out.",
         "guestNameLabel": "Nom du voyageur (facultatif)",

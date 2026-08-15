@@ -362,7 +362,7 @@
         "downloadPng": "Download PNG"
       },
       "guestLinks": {
-        "generateLink": "Guest links",
+        "generateLink": "Create a personalized link for your guest",
         "dialogTitle": "Guest links",
         "dialogDescription": "Create a unique link for a guest's stay dates. It automatically stops working after check-out.",
         "guestNameLabel": "Guest name (optional)",

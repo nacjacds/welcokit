@@ -362,7 +362,7 @@
         "downloadPng": "Descarregar PNG"
       },
       "guestLinks": {
-        "generateLink": "Links para hóspedes",
+        "generateLink": "Criar um link personalizado para o teu hóspede",
         "dialogTitle": "Links para hóspedes",
         "dialogDescription": "Cria um link único para as datas de estadia de um hóspede. Deixa automaticamente de funcionar após o check-out.",
         "guestNameLabel": "Nome do hóspede (opcional)",

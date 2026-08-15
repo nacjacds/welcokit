@@ -123,7 +123,6 @@ export function GuestLinksDialog({
     <>
       <Button
         type="button"
-        variant="outline"
         className={cn("w-full", className)}
         onClick={() => setOpen(true)}
       >
