@@ -12,13 +12,14 @@ Estado vivo del proyecto para retomar el trabajo sin repasar el historial. Léel
 ## Estado automático
 
 <!-- AUTO:INICIO -->
-_Actualizado automáticamente: 2026-10-24 23:59_
+_Actualizado automáticamente: 2026-10-25 00:10_
 
-- **Rama:** `main` · commits locales sin subir a origin/main: **0**
+- **Rama:** `main` · commits locales sin subir a origin/main: **1**
 - **Cambios sin commitear:** 1 (memory.md)
 - **Última migración en el repo:** `20260723090000_premium_guides.sql`
 
 **Últimos commits:**
+- `5729b8c` 2026-10-25 — Docs: auto deploy now enabled in EasyPanel
 - `d35e2da` 2026-10-24 — Add n8n workflow to keep Supabase project alive
 - `4147da9` 2026-10-24 — Fix memory script dropping first char of status paths
 - `b4f9992` 2026-10-24 — Add auto-updated memory.md (Stop hook) and project memory rule
@@ -33,7 +34,6 @@ _Actualizado automáticamente: 2026-10-24 23:59_
 - `c125833` 2026-07-20 — Default new property's content language to host's dashboard_locale instead of hardcoded 'es'
 - `2acb5c6` 2026-07-20 — i18n Fase 5: translate legal pages to EN/FR/IT/PT, unify address, localize footer links
 - `1a0b7bf` 2026-07-20 — i18n Fase 4: translate dashboard/landing/auth messages to French, Italian, Portuguese
-- `0bd4ec6` 2026-07-20 — Fix: translate WiFi QR alt text (was hardcoded in Spanish for all locales)
 <!-- AUTO:FIN -->
 
 ## Guía premium (`welcokit.guide/v1`) — en curso
