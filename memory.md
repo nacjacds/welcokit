@@ -12,13 +12,14 @@ Estado vivo del proyecto para retomar el trabajo sin repasar el historial. Léel
 ## Estado automático
 
 <!-- AUTO:INICIO -->
-_Actualizado automáticamente: 2026-10-25 00:30_
+_Actualizado automáticamente: 2026-10-25 01:19_
 
-- **Rama:** `main` · commits locales sin subir a origin/main: **0**
-- **Cambios sin commitear:** 1 (memory.md)
-- **Última migración en el repo:** `20260723090000_premium_guides.sql`
+- **Rama:** `main` · commits locales sin subir a origin/main: **1**
+- **Cambios sin commitear:** 23 (app/(dashboard)/properties/[id]/edit/page.tsx, components/editor/PropertyEditor.tsx, components/editor/PublishPanel.tsx, components/guide/GuideLocaleProvider.tsx, components/premium-guide/GuideIcon.tsx, components/premium-guide/PremiumGuideView.tsx…)
+- **Última migración en el repo:** `20260725090000_premium_guide_pdf.sql`
 
 **Últimos commits:**
+- `b11a3f3` 2026-10-25 — Premium guides phase 2: responsive guest view (cover, index, place cards, emergency)
 - `f17b3fa` 2026-10-25 — Update memory.md auto state
 - `5729b8c` 2026-10-25 — Docs: auto deploy now enabled in EasyPanel
 - `d35e2da` 2026-10-24 — Add n8n workflow to keep Supabase project alive
@@ -33,7 +34,6 @@ _Actualizado automáticamente: 2026-10-25 00:30_
 - `516942e` 2026-07-20 — Fix: admin plan selector showed raw value instead of proper label (same Select bug as content language)
 - `867edb8` 2026-07-20 — Add content language selector to property settings, with clarifying warning about no auto-translation
 - `c125833` 2026-07-20 — Default new property's content language to host's dashboard_locale instead of hardcoded 'es'
-- `2acb5c6` 2026-07-20 — i18n Fase 5: translate legal pages to EN/FR/IT/PT, unify address, localize footer links
 <!-- AUTO:FIN -->
 
 ## Guía premium (`welcokit.guide/v1`) — en curso
@@ -49,7 +49,8 @@ Integración de las guías ilustradas hechas a mano (Sol Muralla, Carihuela Cris
   **Aplicada a mano en el SQL Editor de Supabase** (el CLI no tiene acceso a ese proyecto): si algún día se enlaza el CLI,
   `supabase migration repair --status applied 20260723090000` antes de `db push`. Importadas 8 guías, 88 secciones, 83 lugares, 332 fichas.
 - **Fase 2 (vista web): hecha y commiteada (sin push).** `lib/premium-guide/` (fetch con service role + URLs firmadas del bucket privado, sanitizador HTML, fuentes Poppins/Lora) y `components/premium-guide/` (portada, índice, PlaceCard, Callout, urgencias). `app/guide/[slug]/page.tsx` y `app/guide/link/[token]/page.tsx` pintan la premium si hay filas en `guides`; si no, la guía de siempre. Probada en local en móvil y escritorio. `guides.map_note` es una nota interna del kit, no se muestra. **Ojo:** las dos propiedades de prueba están publicadas, así que al desplegar se ven ya en producción.
-- **Pendiente:** Fase 3 (PDF con Playwright), 4 (editor "Guía premium"), 5 (few-shot en la IA).
+- **Fase 3 (PDF): hecha y commiteada (sin push), caché sin probar de extremo a extremo.** Ruta `/guide/[slug]/print?lang=` (token HMAC `pt` para propiedades no publicadas), `lib/premium-guide/pdf.ts` (playwright-core; Chromium vía `PDF_BROWSER_WS_URL` en producción o `PDF_CHROMIUM_PATH` en local), caché en bucket `guide-pdfs` (obsoleto si `pdf_generated_at < guides.updated_at`; triggers de la migración `20260725090000` lo mantienen), endpoint `/api/properties/[id]/premium-guide-pdf?lang=` y botones en `PublishPanel`. **Migración `20260725090000` pendiente de pegar en el SQL Editor.** Fondo blanco en el PDF: Chromium no pinta el fondo en los márgenes.
+- **Pendiente:** Fase 4 (PDF con Playwright), 4 (editor "Guía premium"), 5 (few-shot en la IA).
 
 **Decisiones**
 - Las tablas premium no tienen policies anon: el huésped lee desde el servidor con service role. El dueño tiene CRUD vía `properties.host_id`.
@@ -64,6 +65,10 @@ Integración de las guías ilustradas hechas a mano (Sol Muralla, Carihuela Cris
 - Lugares sin geocodificar (`lat/lng/google_place_id` vacíos): `--geocode` necesita `GOOGLE_MAPS_SERVER_KEY` en `.env.local`.
 - El panel del anfitrión NO tiene `nl` (`AppLocale`, `messages/`, CHECK de `profiles.dashboard_locale`); solo la guía pública.
 - Añadir `nl` a `ALL_GUIDE_LOCALES` hace que cada guardado lance una traducción más a Haiku.
+
+## Landing
+
+- Capa «tech premium» (2026-10-25): `components/landing/landing.css` (rejilla, glows, glass, shine, spotlight, borde degradado) y `components/landing/motion.tsx` (`Reveal`, `Parallax`, `SpotlightCard`, `TiltCard`, `ScrollProgress`). Todo respeta `prefers-reduced-motion`. Paleta de marca sin cambios.
 
 ## Deploy
 

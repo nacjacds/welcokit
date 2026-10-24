@@ -1,11 +1,11 @@
 "use client";
 
 import { Fragment } from "react";
-import { motion } from "framer-motion";
 import { useTranslations } from "next-intl";
 import { cn } from "@/lib/utils";
 import { BookingConfirmedIcon, SendLinkIcon, PhoneAccessIcon } from "./AnyPlatformIcons";
 import { WaveDivider } from "./WaveDivider";
+import { Reveal } from "./motion";
 
 const ICONS = [BookingConfirmedIcon, SendLinkIcon, PhoneAccessIcon];
 
@@ -63,18 +63,12 @@ export function LandingAnyPlatform() {
             const Icon = ICONS[i];
             return (
               <Fragment key={step.label}>
-                <motion.div
-                  initial={{ opacity: 0, y: 16 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-60px" }}
-                  transition={{ duration: 0.45, delay: i * 0.12 }}
-                  className="flex flex-col items-center sm:w-[200px]"
-                >
+                <Reveal delay={i * 0.14} className="flex flex-col items-center sm:w-[200px]">
                   <Icon className="size-20 sm:size-24" />
                   <p className="mt-3 text-base font-medium text-[#1A1A18] sm:text-lg">
                     <strong className="font-bold">{i + 1}</strong> - {step.label}
                   </p>
-                </motion.div>
+                </Reveal>
                 {i < steps.length - 1 && (
                   <>
                     <VerticalConnector flip={i === 1} className="sm:hidden" />

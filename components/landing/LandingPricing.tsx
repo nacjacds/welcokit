@@ -1,12 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import { motion } from "framer-motion";
 import { useTranslations } from "next-intl";
 import { Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { PLANS, PLAN_ORDER } from "@/lib/plans";
 import { WaveDivider } from "./WaveDivider";
+import { Reveal, SpotlightCard } from "./motion";
 
 const HIGHLIGHTED_PLAN_ID = "pro";
 
@@ -16,7 +16,7 @@ export function LandingPricing() {
   return (
     <section className="bg-[#FAFAF8] pt-16 pb-0 sm:pt-24">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
-        <div className="mb-12 text-center">
+        <Reveal className="mb-12 text-center">
           <span className="text-xs font-medium tracking-wide text-[#FF4200] uppercase">
             {t("eyebrow")}
           </span>
@@ -24,7 +24,7 @@ export function LandingPricing() {
             {t("title")}
           </h2>
           <p className="mt-3 text-base text-[#6B6B67]">{t("subtitle")}</p>
-        </div>
+        </Reveal>
 
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {PLAN_ORDER.map((planId, i) => {
@@ -33,16 +33,13 @@ export function LandingPricing() {
             const features = t.raw(`planFeatures.${planId}`) as string[];
 
             return (
-              <motion.div
+              <SpotlightCard
                 key={planId}
-                initial={{ opacity: 0, y: 16 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-60px" }}
-                transition={{ duration: 0.4, delay: i * 0.06 }}
+                delay={i * 0.07}
                 className={`relative flex flex-col rounded-2xl border p-6 ${
                   highlighted
-                    ? "border-[#FF4200] bg-white shadow-md"
-                    : "border-[#DDD8CC] bg-white/60"
+                    ? "lp-gradient-border shadow-[0_24px_60px_-28px_rgba(255,66,0,0.45)]"
+                    : "border-[#DDD8CC] bg-white/70"
                 }`}
               >
                 {highlighted && (
@@ -80,7 +77,7 @@ export function LandingPricing() {
                 >
                   {planId === "free" ? t("cta") : t("ctaPaid", { plan: plan.label })}
                 </Button>
-              </motion.div>
+              </SpotlightCard>
             );
           })}
         </div>

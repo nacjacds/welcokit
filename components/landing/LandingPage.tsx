@@ -12,12 +12,15 @@ import { LandingHowItWorks } from "./LandingHowItWorks";
 import { LandingPricing } from "./LandingPricing";
 import { LandingFinalCta } from "./LandingFinalCta";
 import { LandingFooter } from "./LandingFooter";
+import { ScrollProgress } from "./motion";
+import "./landing.css";
 
 export function LandingPage({ initialLocale }: { initialLocale?: AppLocale }) {
   return (
     <LocaleProvider initialLocale={initialLocale}>
       <MotionConfig reducedMotion="user">
         <div className="min-h-screen bg-[#FAFAF8]">
+          <ScrollProgress />
           <LandingHeader />
           <LandingHero />
           <LandingAnyPlatform />

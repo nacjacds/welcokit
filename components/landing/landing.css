@@ -1,0 +1,165 @@
+/* Landing "tech premium" layer: light, clean surfaces with a faint grid,
+   soft blurred glows, spotlight hovers and a few slow, looping accents.
+   Brand colours only (#1B4F72 / #FF4200 on cream). Everything that loops
+   or moves is switched off under prefers-reduced-motion; scroll-driven
+   motion (parallax, progress) is handled in motion.tsx, which honours the
+   same preference. */
+
+.lp-grid {
+  background-image:
+    linear-gradient(to right, rgba(27, 79, 114, 0.07) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(27, 79, 114, 0.07) 1px, transparent 1px);
+  background-size: 44px 44px;
+  -webkit-mask-image: radial-gradient(ellipse 80% 70% at 50% 0%, #000 25%, transparent 78%);
+  mask-image: radial-gradient(ellipse 80% 70% at 50% 0%, #000 25%, transparent 78%);
+}
+
+.lp-grid-dark {
+  background-image:
+    linear-gradient(to right, rgba(255, 255, 255, 0.07) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.07) 1px, transparent 1px);
+  background-size: 44px 44px;
+  -webkit-mask-image: radial-gradient(ellipse 80% 90% at 50% 50%, #000 20%, transparent 75%);
+  mask-image: radial-gradient(ellipse 80% 90% at 50% 50%, #000 20%, transparent 75%);
+}
+
+.lp-orb {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(70px);
+  pointer-events: none;
+}
+
+.lp-text-gradient {
+  background: linear-gradient(95deg, #1b4f72 10%, #ff4200 95%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Glass surface: white veil + blur + hairline border. */
+.lp-glass {
+  background: rgba(255, 255, 255, 0.72);
+  -webkit-backdrop-filter: blur(14px) saturate(1.4);
+  backdrop-filter: blur(14px) saturate(1.4);
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  box-shadow: 0 8px 30px -12px rgba(27, 79, 114, 0.25);
+}
+
+/* A diagonal sheen that sweeps across a CTA every few seconds. */
+.lp-shine {
+  position: relative;
+  overflow: hidden;
+}
+.lp-shine::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(110deg, transparent 35%, rgba(255, 255, 255, 0.5) 50%, transparent 65%);
+  transform: translateX(-120%);
+  animation: lp-shine 5s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes lp-shine {
+  0%,
+  55% {
+    transform: translateX(-120%);
+  }
+  100% {
+    transform: translateX(120%);
+  }
+}
+
+.lp-float {
+  animation: lp-float 7s ease-in-out infinite;
+}
+@keyframes lp-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.lp-pulse-dot {
+  position: relative;
+}
+.lp-pulse-dot::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: inherit;
+  animation: lp-ping 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+@keyframes lp-ping {
+  75%,
+  100% {
+    transform: scale(2.6);
+    opacity: 0;
+  }
+}
+
+/* Cursor-following spotlight on cards (--mx/--my are set in SpotlightCard). */
+.lp-spot {
+  position: relative;
+  transition:
+    transform 0.35s cubic-bezier(0.21, 0.47, 0.32, 0.98),
+    box-shadow 0.35s,
+    border-color 0.35s;
+}
+.lp-spot::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(380px circle at var(--mx, 50%) var(--my, 50%), rgba(255, 66, 0, 0.1), transparent 45%);
+  opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none;
+}
+.lp-spot:hover {
+  transform: translateY(-4px);
+  border-color: rgba(255, 66, 0, 0.35);
+  box-shadow: 0 18px 40px -18px rgba(27, 79, 114, 0.3);
+}
+.lp-spot:hover::before {
+  opacity: 1;
+}
+
+/* Highlighted pricing card: a slowly rotating brand-colour border. */
+@property --lp-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+.lp-gradient-border {
+  border: 2px solid transparent;
+  background:
+    linear-gradient(#fff, #fff) padding-box,
+    conic-gradient(from var(--lp-angle), #ff4200, #1b4f72, #ff4200 60%, #ff4200) border-box;
+  animation: lp-spin 6s linear infinite;
+}
+/* Keep the rotating border visible on hover (.lp-spot:hover recolours borders). */
+.lp-gradient-border:hover {
+  border-color: transparent;
+}
+@keyframes lp-spin {
+  to {
+    --lp-angle: 360deg;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lp-shine::after,
+  .lp-float,
+  .lp-pulse-dot::after,
+  .lp-gradient-border {
+    animation: none;
+  }
+  .lp-spot:hover {
+    transform: none;
+  }
+}

@@ -1,8 +1,8 @@
 "use client";
 
-import { motion } from "framer-motion";
 import { useTranslations } from "next-intl";
 import { HandDrawnCheck, HandDrawnCross } from "./HandDrawnMark";
+import { Reveal } from "./motion";
 
 export function LandingProblemSolution() {
   const t = useTranslations("landing.problem");
@@ -10,7 +10,7 @@ export function LandingProblemSolution() {
   const after = t.raw("after") as string[];
 
   return (
-    <section className="bg-[#F5EFE6] py-16 sm:py-24">
+    <section className="relative overflow-hidden bg-[#F5EFE6] py-16 sm:py-24">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <div className="mb-12 text-center">
           <span className="text-xs font-medium tracking-wide text-[#FF4200] uppercase">
@@ -22,13 +22,7 @@ export function LandingProblemSolution() {
         </div>
 
         <div className="grid gap-6 sm:grid-cols-2 sm:items-stretch lg:gap-8">
-          <motion.div
-            initial={{ opacity: 0, y: 12 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-60px" }}
-            transition={{ duration: 0.45 }}
-            className="rounded-2xl border border-[#DDD8CC] bg-white/60 p-6 sm:p-7"
-          >
+          <Reveal x={-28} y={0} className="rounded-2xl border border-[#DDD8CC] bg-white/60 p-6 sm:p-7">
             <p className="mb-5 text-xs font-medium tracking-wide text-[#6B6B67] uppercase">
               {t("beforeLabel")}
             </p>
@@ -40,15 +34,9 @@ export function LandingProblemSolution() {
                 </li>
               ))}
             </ul>
-          </motion.div>
+          </Reveal>
 
-          <motion.div
-            initial={{ opacity: 0, y: 12 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-60px" }}
-            transition={{ duration: 0.45, delay: 0.1 }}
-            className="rounded-2xl border border-[#1B4F72]/15 bg-white p-6 shadow-sm sm:p-7"
-          >
+          <Reveal x={28} y={0} delay={0.1} className="rounded-2xl border border-[#1B4F72]/15 bg-white p-6 shadow-[0_20px_50px_-25px_rgba(27,79,114,0.35)] sm:p-7">
             <p className="mb-5 text-xs font-medium tracking-wide text-[#1B4F72] uppercase">
               {t("afterLabel")}
             </p>
@@ -60,7 +48,7 @@ export function LandingProblemSolution() {
                 </li>
               ))}
             </ul>
-          </motion.div>
+          </Reveal>
         </div>
       </div>
     </section>
