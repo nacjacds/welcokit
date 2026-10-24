@@ -368,6 +368,45 @@ ${JSON.stringify(content)}`,
   return extractJson<Record<string, unknown>>(text);
 }
 
+// Translations are short, high-volume and don't need the larger model (see
+// CLAUDE.md: Haiku for guide translation) — and a whole premium-guide
+// section is far longer than a block, hence the big output budget.
+const TRANSLATION_MODEL = "claude-haiku-4-5-20251001";
+
+// Translates the text values of one chunk of a premium guide (a section, or
+// the cover), keeping the JSON shape, the HTML tags and every proper noun,
+// price, time and phone number exactly as they are.
+export async function translateGuideChunk(
+  chunk: Record<string, unknown>,
+  targetLanguageName: string
+): Promise<Record<string, unknown>> {
+  const message = await anthropic.messages.create({
+    model: TRANSLATION_MODEL,
+    max_tokens: 12000,
+    messages: [
+      {
+        role: "user",
+        content: `${TRANSLATION_TONE_GUIDANCE}
+
+Esto es parte de una guía local escrita por los anfitriones de un alojamiento, en primera persona del plural ("nosotros"), con tono cercano y consejos concretos.
+Traduce al ${targetLanguageName} todos los valores de texto de este objeto JSON.
+Reglas:
+- Mantén exactamente la misma estructura y las mismas claves; no añadas, quites ni reordenes nada.
+- Conserva las etiquetas HTML (<strong>, <i>, <em>, <br/>, <a href="...">) tal cual, y traduce solo el texto que contienen.
+- No traduzcas nombres propios de lugares, bares, calles ni marcas; tampoco precios, horarios, números de teléfono ni cifras.
+- Las distancias como "~8 min a pie" se traducen manteniendo el mismo formato.
+- No inventes información ni añadas notas.
+Devuelve SOLO el JSON resultante, sin comentarios ni bloque de código markdown:
+
+${JSON.stringify(chunk)}`,
+      },
+    ],
+  });
+
+  const text = message.content[0].type === "text" ? message.content[0].text : "";
+  return extractJson<Record<string, unknown>>(text);
+}
+
 export async function askBot(systemPrompt: string, userMessage: string) {
   const message = await anthropic.messages.create({
     model: MODEL,

@@ -281,7 +281,8 @@
       "nav": {
         "editor": "Editor",
         "settings": "Definições",
-        "stats": "Estatísticas"
+        "stats": "Estatísticas",
+        "premium": "Guia premium"
       },
       "toolbar": {
         "wifi": "WiFi",
@@ -569,6 +570,34 @@
           "time": "Hora de check-out",
           "instructions": "Instruções"
         }
+      },
+      "premium": {
+        "title": "Guia premium",
+        "description": "Edita os textos do teu guia ilustrado, reordena os locais e escolhe o que se mostra. Cada idioma edita-se em separado.",
+        "pendingReview": "Pendente de revisão nativa",
+        "reviewed": "Revisto por um nativo",
+        "markReviewed": "Marcar como revisto",
+        "markPending": "Marcar como pendente",
+        "translateHeading": "Adicionar outro idioma",
+        "translateTo": "Traduzir de EN para {language}",
+        "translateConfirm": "Todo o guia será traduzido do inglês com IA. Demora um ou dois minutos e fica pendente de revisão nativa. Continuar?",
+        "translating": "A traduzir...",
+        "translated": "Guia traduzido para {language}",
+        "translateError": "Não foi possível traduzir o guia",
+        "sectionTitle": "Título",
+        "kicker": "Antetítulo",
+        "intro": "Introdução",
+        "hostTip": "O nosso conselho",
+        "visible": "Visível",
+        "hidden": "Oculta",
+        "moveUp": "Subir",
+        "moveDown": "Descer",
+        "saveError": "Não foi possível guardar",
+        "places": "{count} locais",
+        "none": "Esta propriedade ainda não tem guia premium.",
+        "showPlaces": "Editar locais",
+        "hidePlaces": "Ocultar locais",
+        "description_text": "Descrição"
       }
     },
     "plans": {

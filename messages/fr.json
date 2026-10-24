@@ -281,7 +281,8 @@
       "nav": {
         "editor": "Éditeur",
         "settings": "Paramètres",
-        "stats": "Statistiques"
+        "stats": "Statistiques",
+        "premium": "Guide premium"
       },
       "toolbar": {
         "wifi": "WiFi",
@@ -569,6 +570,34 @@
           "time": "Heure de check-out",
           "instructions": "Instructions"
         }
+      },
+      "premium": {
+        "title": "Guide premium",
+        "description": "Modifiez les textes de votre guide illustré, réordonnez les lieux et choisissez ce qui s'affiche. Chaque langue se modifie séparément.",
+        "pendingReview": "En attente de relecture par un natif",
+        "reviewed": "Relu par un natif",
+        "markReviewed": "Marquer comme relu",
+        "markPending": "Marquer comme en attente",
+        "translateHeading": "Ajouter une autre langue",
+        "translateTo": "Traduire de l'EN vers {language}",
+        "translateConfirm": "Tout le guide sera traduit de l'anglais par IA. Cela prend une à deux minutes et reste en attente de relecture par un natif. Continuer ?",
+        "translating": "Traduction en cours...",
+        "translated": "Guide traduit en {language}",
+        "translateError": "Impossible de traduire le guide",
+        "sectionTitle": "Titre",
+        "kicker": "Sur-titre",
+        "intro": "Introduction",
+        "hostTip": "Notre conseil",
+        "visible": "Visible",
+        "hidden": "Masquée",
+        "moveUp": "Monter",
+        "moveDown": "Descendre",
+        "saveError": "Impossible d'enregistrer",
+        "places": "{count} lieux",
+        "none": "Cette propriété n'a pas encore de guide premium.",
+        "showPlaces": "Modifier les lieux",
+        "hidePlaces": "Masquer les lieux",
+        "description_text": "Description"
       }
     },
     "plans": {

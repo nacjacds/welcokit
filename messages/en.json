@@ -281,7 +281,8 @@
       "nav": {
         "editor": "Editor",
         "settings": "Settings",
-        "stats": "Analytics"
+        "stats": "Analytics",
+        "premium": "Premium guide"
       },
       "toolbar": {
         "wifi": "WiFi",
@@ -569,6 +570,34 @@
           "time": "Check-out time",
           "instructions": "Instructions"
         }
+      },
+      "premium": {
+        "title": "Premium guide",
+        "description": "Edit the texts of your illustrated guide, reorder places and choose what shows. Each language is edited separately.",
+        "pendingReview": "Pending native review",
+        "reviewed": "Reviewed by a native speaker",
+        "markReviewed": "Mark as reviewed",
+        "markPending": "Mark as pending",
+        "translateHeading": "Add another language",
+        "translateTo": "Translate from EN to {language}",
+        "translateConfirm": "The whole guide will be translated from English with AI. It takes a minute or two and stays pending native review. Continue?",
+        "translating": "Translating...",
+        "translated": "Guide translated to {language}",
+        "translateError": "Could not translate the guide",
+        "sectionTitle": "Title",
+        "kicker": "Kicker",
+        "intro": "Intro",
+        "hostTip": "Our tip",
+        "visible": "Visible",
+        "hidden": "Hidden",
+        "moveUp": "Move up",
+        "moveDown": "Move down",
+        "saveError": "Could not save",
+        "places": "{count} places",
+        "none": "This property doesn't have a premium guide yet.",
+        "showPlaces": "Edit places",
+        "hidePlaces": "Hide places",
+        "description_text": "Description"
       }
     },
     "plans": {

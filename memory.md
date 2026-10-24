@@ -12,13 +12,16 @@ Estado vivo del proyecto para retomar el trabajo sin repasar el historial. Léel
 ## Estado automático
 
 <!-- AUTO:INICIO -->
-_Actualizado automáticamente: 2026-10-25 01:19_
+_Actualizado automáticamente: 2026-10-25 01:28_
 
-- **Rama:** `main` · commits locales sin subir a origin/main: **1**
-- **Cambios sin commitear:** 23 (app/(dashboard)/properties/[id]/edit/page.tsx, components/editor/PropertyEditor.tsx, components/editor/PublishPanel.tsx, components/guide/GuideLocaleProvider.tsx, components/premium-guide/GuideIcon.tsx, components/premium-guide/PremiumGuideView.tsx…)
+- **Rama:** `main` · commits locales sin subir a origin/main: **4**
+- **Cambios sin commitear:** 1 (memory.md)
 - **Última migración en el repo:** `20260725090000_premium_guide_pdf.sql`
 
 **Últimos commits:**
+- `ceb9ccd` 2026-10-25 — Landing: fix hard colour cuts (hero glow, final CTA overlay) and drop the blue hero glow
+- `d7cce8d` 2026-10-25 — Landing: tech premium layer (parallax, scroll reveals, spotlight cards, tilt hero, glass header, scroll progress)
+- `68f0849` 2026-10-25 — Premium guides phase 3: printable PDF (print route, Playwright generator, Storage cache, download buttons)
 - `b11a3f3` 2026-10-25 — Premium guides phase 2: responsive guest view (cover, index, place cards, emergency)
 - `f17b3fa` 2026-10-25 — Update memory.md auto state
 - `5729b8c` 2026-10-25 — Docs: auto deploy now enabled in EasyPanel
@@ -31,9 +34,6 @@ _Actualizado automáticamente: 2026-10-25 01:19_
 - `2fd6290` 2026-07-21 — Landing copy: remove em dashes, clarify host-facing product from the hero, add natural SEO keywords in 5 locales
 - `4b032be` 2026-07-21 — Analytics: exclude host IPs (configurable), capture city/country without storing raw IP, update privacy policy
 - `a38f7b3` 2026-07-21 — Add destination_type-aware Places search and Claude curation for more relevant recommendations
-- `516942e` 2026-07-20 — Fix: admin plan selector showed raw value instead of proper label (same Select bug as content language)
-- `867edb8` 2026-07-20 — Add content language selector to property settings, with clarifying warning about no auto-translation
-- `c125833` 2026-07-20 — Default new property's content language to host's dashboard_locale instead of hardcoded 'es'
 <!-- AUTO:FIN -->
 
 ## Guía premium (`welcokit.guide/v1`) — en curso
@@ -50,7 +50,8 @@ Integración de las guías ilustradas hechas a mano (Sol Muralla, Carihuela Cris
   `supabase migration repair --status applied 20260723090000` antes de `db push`. Importadas 8 guías, 88 secciones, 83 lugares, 332 fichas.
 - **Fase 2 (vista web): hecha y commiteada (sin push).** `lib/premium-guide/` (fetch con service role + URLs firmadas del bucket privado, sanitizador HTML, fuentes Poppins/Lora) y `components/premium-guide/` (portada, índice, PlaceCard, Callout, urgencias). `app/guide/[slug]/page.tsx` y `app/guide/link/[token]/page.tsx` pintan la premium si hay filas en `guides`; si no, la guía de siempre. Probada en local en móvil y escritorio. `guides.map_note` es una nota interna del kit, no se muestra. **Ojo:** las dos propiedades de prueba están publicadas, así que al desplegar se ven ya en producción.
 - **Fase 3 (PDF): hecha y commiteada (sin push), caché sin probar de extremo a extremo.** Ruta `/guide/[slug]/print?lang=` (token HMAC `pt` para propiedades no publicadas), `lib/premium-guide/pdf.ts` (playwright-core; Chromium vía `PDF_BROWSER_WS_URL` en producción o `PDF_CHROMIUM_PATH` en local), caché en bucket `guide-pdfs` (obsoleto si `pdf_generated_at < guides.updated_at`; triggers de la migración `20260725090000` lo mantienen), endpoint `/api/properties/[id]/premium-guide-pdf?lang=` y botones en `PublishPanel`. **Migración `20260725090000` pendiente de pegar en el SQL Editor.** Fondo blanco en el PDF: Chromium no pinta el fondo en los márgenes.
-- **Pendiente:** Fase 4 (PDF con Playwright), 4 (editor "Guía premium"), 5 (few-shot en la IA).
+- **Fase 4 (editor): hecha y commiteada (sin push), sin probar con sesión de anfitrión ni la traducción con IA.** Pestaña «Guía premium» (`/properties/[id]/premium`, solo si hay guías): `components/editor/PremiumGuideEditor.tsx` (editar título/antetítulo/entradilla de sección, descripción y «Nuestro consejo» de cada lugar, mostrar/ocultar, subir/bajar lugares, marcar revisión nativa) y «Traducir desde EN» (`lib/premium-guide/translate.ts`, Haiku por sección). Rutas: `/api/premium-guides/[id]`, `/api/premium-guide-sections/[id]`, `/api/premium-guide-places/[id]` y `/move`, `/api/properties/[id]/premium-guide/translate`. No edita bloques de texto sueltos (callouts, urgencias). Editar un idioma no toca los demás.
+- **Pendiente:** Fase 5 (PDF con Playwright), 4 (editor "Guía premium"), 5 (few-shot en la IA).
 
 **Decisiones**
 - Las tablas premium no tienen policies anon: el huésped lee desde el servidor con service role. El dueño tiene CRUD vía `properties.host_id`.

@@ -281,7 +281,8 @@
       "nav": {
         "editor": "Editor",
         "settings": "Impostazioni",
-        "stats": "Statistiche"
+        "stats": "Statistiche",
+        "premium": "Guida premium"
       },
       "toolbar": {
         "wifi": "WiFi",
@@ -569,6 +570,34 @@
           "time": "Orario di check-out",
           "instructions": "Istruzioni"
         }
+      },
+      "premium": {
+        "title": "Guida premium",
+        "description": "Modifica i testi della tua guida illustrata, riordina i luoghi e scegli cosa mostrare. Ogni lingua si modifica separatamente.",
+        "pendingReview": "In attesa di revisione madrelingua",
+        "reviewed": "Rivista da un madrelingua",
+        "markReviewed": "Segna come rivista",
+        "markPending": "Segna come in attesa",
+        "translateHeading": "Aggiungi un'altra lingua",
+        "translateTo": "Traduci da EN a {language}",
+        "translateConfirm": "Tutta la guida verrà tradotta dall'inglese con l'IA. Ci vuole uno o due minuti e resta in attesa di revisione madrelingua. Continuare?",
+        "translating": "Traduzione in corso...",
+        "translated": "Guida tradotta in {language}",
+        "translateError": "Impossibile tradurre la guida",
+        "sectionTitle": "Titolo",
+        "kicker": "Sopratitolo",
+        "intro": "Introduzione",
+        "hostTip": "Il nostro consiglio",
+        "visible": "Visibile",
+        "hidden": "Nascosta",
+        "moveUp": "Su",
+        "moveDown": "Giù",
+        "saveError": "Impossibile salvare",
+        "places": "{count} luoghi",
+        "none": "Questa proprietà non ha ancora una guida premium.",
+        "showPlaces": "Modifica i luoghi",
+        "hidePlaces": "Nascondi i luoghi",
+        "description_text": "Descrizione"
       }
     },
     "plans": {

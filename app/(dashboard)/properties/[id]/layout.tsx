@@ -1,4 +1,5 @@
 import { notFound } from "next/navigation";
+import type { SupabaseClient } from "@supabase/supabase-js";
 import { createClient } from "@/lib/supabase/server";
 import { PropertyNav } from "@/components/editor/PropertyNav";
 import { PropertyBreadcrumbLink } from "@/components/editor/PropertyBreadcrumbLink";
@@ -30,6 +31,12 @@ export default async function PropertyLayout({
 
   if (!property) notFound();
 
+  // The "Guía premium" tab only exists for properties that have one.
+  const { count: premiumGuideCount } = await (supabase as unknown as SupabaseClient)
+    .from("guides")
+    .select("id", { count: "exact", head: true })
+    .eq("property_id", id);
+
   return (
     <div className="space-y-6">
       <div>
@@ -52,7 +59,7 @@ export default async function PropertyLayout({
       */}
       <div id="guide-actions-mobile-slot" className="md:hidden" />
 
-      <PropertyNav propertyId={id} />
+      <PropertyNav propertyId={id} hasPremiumGuide={(premiumGuideCount ?? 0) > 0} />
 
       {/*
         The property-actions sidebar (publish toggle, share, QR, cover
