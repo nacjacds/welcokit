@@ -597,7 +597,11 @@
         "none": "Esta propriedade ainda não tem guia premium.",
         "showPlaces": "Editar locais",
         "hidePlaces": "Ocultar locais",
-        "description_text": "Descrição"
+        "description_text": "Descrição",
+        "draftDescription": "Esta propriedade não tem guia premium. Podes criar um rascunho com IA a partir das suas recomendações locais (dados reais do Google) e depois polir.",
+        "draftButton": "Criar rascunho com IA",
+        "draftGenerating": "A gerar o rascunho...",
+        "draftError": "Não foi possível gerar o rascunho"
       }
     },
     "plans": {

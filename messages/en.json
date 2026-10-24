@@ -597,7 +597,11 @@
         "none": "This property doesn't have a premium guide yet.",
         "showPlaces": "Edit places",
         "hidePlaces": "Hide places",
-        "description_text": "Description"
+        "description_text": "Description",
+        "draftDescription": "This property has no premium guide. You can create an AI draft from its local recommendations (real Google data) and polish it afterwards.",
+        "draftButton": "Create AI draft",
+        "draftGenerating": "Generating draft...",
+        "draftError": "Could not generate the draft"
       }
     },
     "plans": {

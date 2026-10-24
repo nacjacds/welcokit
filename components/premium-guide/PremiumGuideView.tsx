@@ -61,13 +61,18 @@ function Cover({ guide }: { guide: PremiumGuide }) {
   const { cover, property } = guide;
   return (
     <header className="pg-cover">
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
-        src={cover.hero_image}
-        alt=""
-        className="pg-cover-img block max-h-[68vh] w-full object-cover object-bottom"
-        fetchPriority="high"
-      />
+      {cover.hero_image ? (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img
+          src={cover.hero_image}
+          alt=""
+          className="pg-cover-img block max-h-[68vh] w-full object-cover object-bottom"
+          fetchPriority="high"
+        />
+      ) : (
+        // AI drafts without a cover photo: a plain brand-colour band.
+        <div className="pg-cover-img h-40 w-full bg-[var(--pg-sea)] sm:h-56" />
+      )}
       <div className="pg-cover-text mx-auto max-w-3xl px-5 pb-10 pt-6 sm:px-8">
         <p className="pg-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-[var(--pg-terra)]">{cover.kicker}</p>
         <h1 className="pg-sans mt-2 text-5xl font-bold leading-[1.05] text-[var(--pg-sea)] sm:text-6xl">{cover.title}</h1>

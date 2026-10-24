@@ -597,7 +597,11 @@
         "none": "Esta propiedad todavía no tiene guía premium.",
         "showPlaces": "Editar lugares",
         "hidePlaces": "Ocultar lugares",
-        "description_text": "Descripción"
+        "description_text": "Descripción",
+        "draftDescription": "Esta propiedad no tiene guía premium. Puedes crear un borrador con IA a partir de sus recomendaciones locales (datos reales de Google) y pulirlo después.",
+        "draftButton": "Crear borrador con IA",
+        "draftGenerating": "Generando borrador...",
+        "draftError": "No se pudo generar el borrador"
       }
     },
     "plans": {

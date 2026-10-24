@@ -597,7 +597,11 @@
         "none": "Questa proprietà non ha ancora una guida premium.",
         "showPlaces": "Modifica i luoghi",
         "hidePlaces": "Nascondi i luoghi",
-        "description_text": "Descrizione"
+        "description_text": "Descrizione",
+        "draftDescription": "Questa proprietà non ha una guida premium. Puoi creare una bozza con l'IA dalle sue raccomandazioni locali (dati reali di Google) e rifinirla.",
+        "draftButton": "Crea bozza con l'IA",
+        "draftGenerating": "Generazione della bozza...",
+        "draftError": "Impossibile generare la bozza"
       }
     },
     "plans": {

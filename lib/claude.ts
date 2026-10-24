@@ -1,6 +1,7 @@
 import Anthropic from "@anthropic-ai/sdk";
 import type { DestinationType, HostTone } from "@/types";
 import type { AppLocale } from "@/lib/locale";
+import { premiumStyleReference } from "@/lib/premium-guide/examples";
 
 const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
 
@@ -201,6 +202,10 @@ no estén en los datos proporcionados.
 No inventes ni modifiques ningún dato factual. Solo elige, ordena y describe a partir de la
 lista proporcionada.
 
+Referencia de estilo (voz y nivel de detalle de nuestras guías premium; las descripciones de
+este caso son más cortas y se basan solo en los datos que tienes):
+${premiumStyleReference()}
+
 Devuelve SOLO un JSON array en el orden de recomendación:
 [{ "place_id": "...", "description": "..." }, ...]
 `;
@@ -242,6 +247,9 @@ lugar, ambiente, qué esperar — basándote únicamente en su nombre, rating y 
 ${destinationGuidance}
 No inventes datos factuales (precios, platos concretos, horarios) que no estén en los datos
 proporcionados.
+
+Referencia de estilo (voz y nivel de detalle de nuestras guías premium):
+${premiumStyleReference()}
 
 Devuelve SOLO un JSON: { "description": "..." }
 `;
@@ -405,6 +413,85 @@ ${JSON.stringify(chunk)}`,
 
   const text = message.content[0].type === "text" ? message.content[0].text : "";
   return extractJson<Record<string, unknown>>(text);
+}
+
+export interface PremiumGuideCopyInput {
+  propertyName: string;
+  address: string;
+  hostNames: string;
+  languageName: string;
+  tone: "friendly" | "formal";
+  welcomeMessage: string | null;
+  categories: {
+    category: string;
+    places: {
+      id: string;
+      name: string;
+      address: string | null;
+      walking_minutes: number | null;
+      rating: number | null;
+      description: string | null;
+    }[];
+  }[];
+}
+
+export interface PremiumGuideCopy {
+  cover: { kicker: string; title: string; subtitle: string | null; tagline_html: string | null };
+  welcome_title: string;
+  welcome_html: string;
+  note_html: string;
+  sections: {
+    category: string;
+    title: string;
+    kicker: string | null;
+    intro_html: string | null;
+    places: { id: string; description_html: string; host_tip_html: string | null }[];
+  }[];
+}
+
+// Writes the copy of an AI draft premium guide (welcokit.guide/v1) from the
+// property's real Google Places data. The model only writes text around the
+// places it is given: it never decides which places exist, and ratings,
+// distances and addresses are filled in from the data afterwards, not by it.
+export async function generatePremiumGuideCopy(input: PremiumGuideCopyInput): Promise<PremiumGuideCopy> {
+  const tone =
+    input.tone === "formal"
+      ? "formal y cortés, tratando de usted al huésped"
+      : "cercano y cálido, tuteando al huésped";
+
+  const prompt = `
+Eres el redactor de las guías locales premium de WelcoKit. Escribes la guía de "${input.propertyName}",
+un alojamiento en ${input.address}, firmada por sus anfitriones (${input.hostNames}).
+Idioma de salida: ${input.languageName}. Tono: ${tone}.
+
+${premiumStyleReference()}
+
+Datos reales de los lugares, por categoría (nombre, dirección, minutos a pie, nota de Google y una
+descripción previa basada en datos de Google):
+${JSON.stringify(input.categories, null, 2)}
+
+${input.welcomeMessage ? `Mensaje de bienvenida que el anfitrión ya tiene (úsalo como base, sin contradecirlo):\n${input.welcomeMessage}\n` : ""}
+Escribe, en ${input.languageName}:
+- "cover": kicker (en mayúsculas, p. ej. "UNA GUÍA LOCAL DE VUESTROS ANFITRIONES"), title (nombre de la ciudad o zona), subtitle (opcional) y tagline_html (1-2 frases).
+- "welcome_title" y "welcome_html": bienvenida breve de los anfitriones. No inventes orientación al salir del portal ni transporte.
+- "note_html": aviso de que horarios y precios cambian y conviene comprobarlos en Google Maps.
+- "sections": una por categoría recibida (mismo valor en "category"), con título, kicker, intro_html (1-2 frases) y, para CADA lugar recibido (mismo "id"), "description_html" (2-3 frases con voz de anfitrión, basadas solo en los datos) y "host_tip_html" (una línea concreta SOLO si los datos la sostienen; si no, null).
+
+Reglas estrictas: no inventes platos, precios, horarios, historia ni notas; no cambies nombres ni cifras;
+HTML permitido: <strong>, <i>, <em>, <br/>, <a href>. No añadas lugares nuevos ni omitas ninguno.
+
+Devuelve SOLO un JSON con esta forma exacta, sin comentarios ni bloque de código:
+{"cover":{"kicker":"","title":"","subtitle":null,"tagline_html":""},"welcome_title":"","welcome_html":"","note_html":"","sections":[{"category":"","title":"","kicker":"","intro_html":"","places":[{"id":"","description_html":"","host_tip_html":null}]}]}
+`;
+
+  const message = await anthropic.messages.create({
+    model: MODEL,
+    max_tokens: 8000,
+    messages: [{ role: "user", content: prompt }],
+  });
+
+  const text = message.content[0].type === "text" ? message.content[0].text : "";
+  return extractJson<PremiumGuideCopy>(text);
 }
 
 export async function askBot(systemPrompt: string, userMessage: string) {

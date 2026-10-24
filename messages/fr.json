@@ -597,7 +597,11 @@
         "none": "Cette propriété n'a pas encore de guide premium.",
         "showPlaces": "Modifier les lieux",
         "hidePlaces": "Masquer les lieux",
-        "description_text": "Description"
+        "description_text": "Description",
+        "draftDescription": "Cette propriété n'a pas de guide premium. Vous pouvez créer un brouillon par IA à partir de ses recommandations locales (données Google réelles), puis le peaufiner.",
+        "draftButton": "Créer un brouillon par IA",
+        "draftGenerating": "Génération du brouillon...",
+        "draftError": "Impossible de générer le brouillon"
       }
     },
     "plans": {

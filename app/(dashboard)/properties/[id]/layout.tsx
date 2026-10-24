@@ -1,4 +1,5 @@
 import { notFound } from "next/navigation";
+import { isSuperAdmin } from "@/lib/admin";
 import type { SupabaseClient } from "@supabase/supabase-js";
 import { createClient } from "@/lib/supabase/server";
 import { PropertyNav } from "@/components/editor/PropertyNav";
@@ -31,7 +32,8 @@ export default async function PropertyLayout({
 
   if (!property) notFound();
 
-  // The "Guía premium" tab only exists for properties that have one.
+  // The "Guía premium" tab only exists for properties that have one (a
+  // superadmin also sees it on the rest, to start an AI draft).
   const { count: premiumGuideCount } = await (supabase as unknown as SupabaseClient)
     .from("guides")
     .select("id", { count: "exact", head: true })
@@ -59,7 +61,7 @@ export default async function PropertyLayout({
       */}
       <div id="guide-actions-mobile-slot" className="md:hidden" />
 
-      <PropertyNav propertyId={id} hasPremiumGuide={(premiumGuideCount ?? 0) > 0} />
+      <PropertyNav propertyId={id} hasPremiumGuide={(premiumGuideCount ?? 0) > 0 || isSuperAdmin(user?.email)} />
 
       {/*
         The property-actions sidebar (publish toggle, share, QR, cover

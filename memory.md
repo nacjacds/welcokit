@@ -12,13 +12,14 @@ Estado vivo del proyecto para retomar el trabajo sin repasar el historial. Léel
 ## Estado automático
 
 <!-- AUTO:INICIO -->
-_Actualizado automáticamente: 2026-10-25 01:28_
+_Actualizado automáticamente: 2026-10-25 01:35_
 
-- **Rama:** `main` · commits locales sin subir a origin/main: **4**
+- **Rama:** `main` · commits locales sin subir a origin/main: **0**
 - **Cambios sin commitear:** 1 (memory.md)
 - **Última migración en el repo:** `20260725090000_premium_guide_pdf.sql`
 
 **Últimos commits:**
+- `a94a46b` 2026-10-25 — Premium guides phase 4: host editor tab (edit texts, reorder, hide/show, native-review flag) and AI translation from EN
 - `ceb9ccd` 2026-10-25 — Landing: fix hard colour cuts (hero glow, final CTA overlay) and drop the blue hero glow
 - `d7cce8d` 2026-10-25 — Landing: tech premium layer (parallax, scroll reveals, spotlight cards, tilt hero, glass header, scroll progress)
 - `68f0849` 2026-10-25 — Premium guides phase 3: printable PDF (print route, Playwright generator, Storage cache, download buttons)
@@ -33,7 +34,6 @@ _Actualizado automáticamente: 2026-10-25 01:28_
 - `eadde43` 2026-07-22 — Fix block creation broken for fr/it/pt locales; make standard block titles derive dynamically instead of freezing at creation
 - `2fd6290` 2026-07-21 — Landing copy: remove em dashes, clarify host-facing product from the hero, add natural SEO keywords in 5 locales
 - `4b032be` 2026-07-21 — Analytics: exclude host IPs (configurable), capture city/country without storing raw IP, update privacy policy
-- `a38f7b3` 2026-07-21 — Add destination_type-aware Places search and Claude curation for more relevant recommendations
 <!-- AUTO:FIN -->
 
 ## Guía premium (`welcokit.guide/v1`) — en curso
@@ -51,7 +51,8 @@ Integración de las guías ilustradas hechas a mano (Sol Muralla, Carihuela Cris
 - **Fase 2 (vista web): hecha y commiteada (sin push).** `lib/premium-guide/` (fetch con service role + URLs firmadas del bucket privado, sanitizador HTML, fuentes Poppins/Lora) y `components/premium-guide/` (portada, índice, PlaceCard, Callout, urgencias). `app/guide/[slug]/page.tsx` y `app/guide/link/[token]/page.tsx` pintan la premium si hay filas en `guides`; si no, la guía de siempre. Probada en local en móvil y escritorio. `guides.map_note` es una nota interna del kit, no se muestra. **Ojo:** las dos propiedades de prueba están publicadas, así que al desplegar se ven ya en producción.
 - **Fase 3 (PDF): hecha y commiteada (sin push), caché sin probar de extremo a extremo.** Ruta `/guide/[slug]/print?lang=` (token HMAC `pt` para propiedades no publicadas), `lib/premium-guide/pdf.ts` (playwright-core; Chromium vía `PDF_BROWSER_WS_URL` en producción o `PDF_CHROMIUM_PATH` en local), caché en bucket `guide-pdfs` (obsoleto si `pdf_generated_at < guides.updated_at`; triggers de la migración `20260725090000` lo mantienen), endpoint `/api/properties/[id]/premium-guide-pdf?lang=` y botones en `PublishPanel`. **Migración `20260725090000` pendiente de pegar en el SQL Editor.** Fondo blanco en el PDF: Chromium no pinta el fondo en los márgenes.
 - **Fase 4 (editor): hecha y commiteada (sin push), sin probar con sesión de anfitrión ni la traducción con IA.** Pestaña «Guía premium» (`/properties/[id]/premium`, solo si hay guías): `components/editor/PremiumGuideEditor.tsx` (editar título/antetítulo/entradilla de sección, descripción y «Nuestro consejo» de cada lugar, mostrar/ocultar, subir/bajar lugares, marcar revisión nativa) y «Traducir desde EN» (`lib/premium-guide/translate.ts`, Haiku por sección). Rutas: `/api/premium-guides/[id]`, `/api/premium-guide-sections/[id]`, `/api/premium-guide-places/[id]` y `/move`, `/api/properties/[id]/premium-guide/translate`. No edita bloques de texto sueltos (callouts, urgencias). Editar un idioma no toca los demás.
-- **Pendiente:** Fase 5 (PDF con Playwright), 4 (editor "Guía premium"), 5 (few-shot en la IA).
+- **Fase 5 (IA): hecha y commiteada, sin probar contra Claude (ANTHROPIC_API_KEY vacía en local).** `lib/premium-guide/examples.ts` (reglas de estilo + 4 fichas few-shot saneadas, solo datos públicos) se inyecta en `curateRecommendations`/`describeManualPlace`. `lib/premium-guide/generateDraft.ts` + `POST /api/properties/[id]/premium-guide/generate` crean un borrador `source='ai'` desde `property_recommendations`: Claude solo redacta, nota/distancia/dirección/coords salen de los datos, `reviews` queda null (no se guarda el nº de reseñas de Google), tags vacíos, consejo null si no hay dato. **Solo superadmin** (la pestaña aparece a superadmin en propiedades sin guía, con botón «Crear borrador con IA»), coherente con «servicio hecho por nosotros».
+- **Pendiente:** aplicar migración 20260725090000, Chromium de producción, probar en producción editor/traducción/borrador (PDF con Playwright), 4 (editor "Guía premium"), 5 (few-shot en la IA).
 
 **Decisiones**
 - Las tablas premium no tienen policies anon: el huésped lee desde el servidor con service role. El dueño tiene CRUD vía `properties.host_id`.
