@@ -6,5 +6,18 @@
       "Write(*)",
       "Edit(*)"
     ]
+  },
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"$CLAUDE_PROJECT_DIR/scripts/actualizar-memory.py\"",
+            "timeout": 15
+          }
+        ]
+      }
+    ]
   }
 }

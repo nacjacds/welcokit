@@ -3,6 +3,15 @@
 - **Dominio:** welcokit.com
 - **Repositorio:** https://github.com/nacjacds/welcokit
 
+## Memoria del proyecto
+
+`memory.md` (raíz del repo) es el estado vivo del proyecto: qué está en curso, decisiones, pendiente y gotchas.
+- Léelo SIEMPRE al empezar una sesión.
+- La sección «Estado automático» (rama, commits recientes, migraciones) la regenera sola `scripts/actualizar-memory.py` al terminar
+  cada respuesta (hook Stop de `.claude/settings.json`): no la edites a mano.
+- Al terminar cualquier tarea que cambie el proyecto, actualiza las demás secciones de `memory.md` antes de darla por cerrada.
+  El repo es público: no incluyas claves, teléfonos, direcciones privadas ni datos de huéspedes.
+
 ## Visión del producto
 
 Web app SaaS para anfitriones de alojamientos turísticos (Airbnb, Vrbo, Booking) que genera automáticamente una guía digital personalizada para sus huéspedes, con recomendaciones locales generadas por IA y un asistente de WhatsApp integrado.
