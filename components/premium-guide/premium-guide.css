@@ -1,0 +1,47 @@
+/* Premium guide (welcokit.guide/v1) — design tokens from docs/guides-kit
+   README section 3. Colour tokens are set on .pg-root (and overridden per
+   property from guides.theme via inline style); components only ever refer
+   to the variables. */
+.pg-root {
+  --pg-sea: #0e4d64;
+  --pg-sea2: #1b6f8a;
+  --pg-turq: #2a9d8f;
+  --pg-terra: #e07a5f;
+  --pg-sun: #f2cc8f;
+  --pg-sun2: #f4a261;
+  --pg-sand: #f6ebdc;
+  --pg-sand2: #ead6b8;
+  --pg-ink: #1f2a33;
+  --pg-green: #5c8d5a;
+  --pg-green2: #3e6b48;
+  --pg-tip: #9a4a35;
+  --pg-danger: #c0392b;
+
+  background: var(--pg-sand);
+  color: var(--pg-ink);
+  font-family: var(--font-lora), Georgia, serif;
+  min-height: 100vh;
+}
+
+.pg-root .pg-sans {
+  font-family: var(--font-poppins), system-ui, sans-serif;
+}
+
+/* Authored HTML: links are always underlined, in the page's colour. */
+.pg-html a {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  font-weight: 600;
+}
+.pg-html strong {
+  font-weight: 700;
+}
+.pg-html a:hover {
+  color: var(--pg-sea);
+}
+
+.pg-card {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 3px 4px 0 var(--pg-sand2);
+}

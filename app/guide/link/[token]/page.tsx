@@ -9,6 +9,8 @@ import { logAnalyticsEvent } from "@/lib/analytics";
 import { fetchPropertyTranslationsForLocales } from "@/lib/translations/fetchTranslations";
 import { guideTargetLocalesFor, resolvePropertySourceLocale } from "@/lib/translations/constants";
 import { resolveGuestLink } from "@/lib/guestLinks";
+import { fetchPremiumGuides } from "@/lib/premium-guide/fetch";
+import { PremiumGuideView } from "@/components/premium-guide/PremiumGuideView";
 
 // Mirrors app/guide/[slug]/page.tsx — same content, resolved via a
 // personalized guest-link token instead of the property's slug. See
@@ -27,6 +29,15 @@ export default async function GuestLinkGuidePage({
   if (resolution.status === "expired") return <GuideUnavailable variant="link_expired" />;
 
   const property = resolution.property!;
+
+  // A premium guide (see lib/premium-guide) takes over the whole page when
+  // the property has one; otherwise the regular block-based guide below.
+  const premiumGuides = await fetchPremiumGuides(property.id);
+  if (Object.keys(premiumGuides).length > 0) {
+    await logAnalyticsEvent(property.id, "guide_opened");
+    return <PremiumGuideView guides={premiumGuides} />;
+  }
+
   const supabase = await createClient();
   const serviceClient = createServiceRoleClient();
 

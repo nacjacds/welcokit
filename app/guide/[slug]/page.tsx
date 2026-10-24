@@ -9,6 +9,8 @@ import { logAnalyticsEvent } from "@/lib/analytics";
 import { fetchPropertyTranslationsForLocales } from "@/lib/translations/fetchTranslations";
 import { guideTargetLocalesFor, resolvePropertySourceLocale } from "@/lib/translations/constants";
 import { classifyGuideAvailability } from "@/lib/properties";
+import { fetchPremiumGuides } from "@/lib/premium-guide/fetch";
+import { PremiumGuideView } from "@/components/premium-guide/PremiumGuideView";
 
 export default async function GuidePage({
   params,
@@ -32,6 +34,14 @@ export default async function GuidePage({
   if (availability === "not_found" || availability === "unpublished") notFound();
   if (availability === "deleted") return <GuideUnavailable />;
   if (!property) notFound();
+
+  // A premium guide (see lib/premium-guide) takes over the whole page when
+  // the property has one; otherwise the regular block-based guide below.
+  const premiumGuides = await fetchPremiumGuides(property.id);
+  if (Object.keys(premiumGuides).length > 0) {
+    await logAnalyticsEvent(property.id, "guide_opened");
+    return <PremiumGuideView guides={premiumGuides} />;
+  }
 
   // profiles has no public/anon RLS select policy (only "own profile" for
   // authenticated users), so a real anonymous guest can't read the host's
