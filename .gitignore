@@ -39,3 +39,6 @@ next-env.d.ts
 .playwright-mcp/
 supabase/.temp/
 .claude/scheduled_tasks.lock
+
+# Kit de guías premium (datos privados, PDF pesados)
+docs/guides-kit/

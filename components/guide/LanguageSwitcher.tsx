@@ -17,6 +17,7 @@ const LANGUAGES: { code: GuideLocale; flag: string; label: string }[] = [
   { code: "fr", flag: "🇫🇷", label: "FR" },
   { code: "it", flag: "🇮🇹", label: "IT" },
   { code: "pt", flag: "🇵🇹", label: "PT" },
+  { code: "nl", flag: "🇳🇱", label: "NL" },
 ];
 
 export function LanguageSwitcher() {

@@ -2,12 +2,12 @@ import type { GuideLocale } from "@/lib/guide-i18n";
 
 export type { GuideLocale };
 
-// Every locale the guest-facing guide can be viewed in. Adding a 6th
+// Every locale the guest-facing guide can be viewed in. Adding a 7th
 // locale later means adding it here (and to lib/guide-i18n.ts's
 // GuideLocale union) — everything downstream (isGuideLocale,
 // guideTargetLocalesFor, LOCALE_NAMES, RECOMMENDATIONS_TARGET_LOCALES)
 // derives from this single list rather than hardcoding locale pairs.
-export const ALL_GUIDE_LOCALES: readonly GuideLocale[] = ["es", "en", "fr", "it", "pt"];
+export const ALL_GUIDE_LOCALES: readonly GuideLocale[] = ["es", "en", "fr", "it", "pt", "nl"];
 
 export function isGuideLocale(value: string): value is GuideLocale {
   return (ALL_GUIDE_LOCALES as readonly string[]).includes(value);
@@ -39,6 +39,7 @@ export const LOCALE_NAMES: Record<GuideLocale, string> = {
   fr: "French",
   it: "Italian",
   pt: "Portuguese",
+  nl: "Dutch",
 };
 
 // property_recommendations descriptions are written by

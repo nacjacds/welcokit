@@ -1,11 +1,12 @@
 import type { GuideBlock } from "@/types";
 
-export type GuideLocale = "es" | "en" | "fr" | "it" | "pt";
+export type GuideLocale = "es" | "en" | "fr" | "it" | "pt" | "nl";
 
 // fr/it/pt use the same informal, direct address register as es (tuteo) —
 // matches the tone Claude already uses for AI-generated guide content in
 // those locales (see lib/claude.ts's OUTPUT_LANGUAGE_NAMES), so the static
 // UI chrome doesn't read more formal/distant than the surrounding content.
+// nl uses the informal "je/jij" register, same direct tone as the rest.
 // pt is European Portuguese ("tu"/"contacta"), not Brazilian ("você").
 const GUIDE_TRANSLATIONS_AUTHORED = {
   es: {
@@ -287,6 +288,62 @@ const GUIDE_TRANSLATIONS_AUTHORED = {
     linkExpiredTitle: "Este link já não está disponível",
     linkExpiredMessage:
       "O período de estadia associado a este link já terminou. Se precisares de aceder ao guia, contacta o teu anfitrião.",
+  },
+  nl: {
+    back: "Terug",
+    recommendations: "Aanbevelingen",
+    recommendationsTile: "Aanbevelingen",
+    recommendationsEmpty: "Er zijn nog geen aanbevelingen.",
+    viewOnMap: "Bekijk op de kaart",
+    directions: "Route",
+    contactHost: "Neem contact op met de gastheer",
+    photoClose: "Sluiten",
+    photoPrevious: "Vorige foto",
+    photoNext: "Volgende foto",
+    photoViewLarger: "Foto vergroten",
+    backToEditor: "Terug naar de editor",
+    backToAdminPanel: "Terug naar admin",
+    hostIntroLabel: "Gastheer",
+    category_supermarket: "Supermarkten",
+    category_pharmacy: "Apotheken",
+    category_transport: "Vervoer",
+    emergency_general: "Algemeen alarmnummer",
+    emergency_police: "Politie",
+    emergency_ambulance: "Ambulance",
+    emergency_firefighters: "Brandweer",
+    emergency_hospital: "Dichtstbijzijnde ziekenhuis",
+    block_wifi: "WiFi",
+    block_checkin: "Inchecken",
+    block_checkout: "Uitchecken",
+    block_rules: "Huisregels",
+    block_parking: "Parkeren",
+    block_appliances: "Apparaten",
+    block_emergencias: "Noodgevallen",
+    block_pool: "Zwembad",
+    block_restaurants: "Waar te eten",
+    block_drinks: "Drankjes en bars",
+    block_nightlife: "Uitgaan",
+    block_attractions: "Wat te bezoeken",
+    block_beaches: "Stranden",
+    block_nature: "Natuur",
+    checkinFromLabel: "Inchecken vanaf",
+    checkoutFromLabel: "Uitchecken vóór",
+    wifiConnectButton: "Ik ben verbonden",
+    wifiConnectedPrefix: "Verbonden met",
+    wifiConnectedSuffix: "— je kunt de gids nu gebruiken zonder mobiele data",
+    wifiChangeNetwork: "Ander netwerk",
+    wifiQrAlt: "WiFi-QR-code",
+    wifiScanToConnect: "Scan om automatisch verbinding te maken",
+    walkingMinutes: "min lopen",
+    emptyGuideTitle: "Deze gids wordt voorbereid",
+    emptyGuideMessage:
+      "Je gastheer is deze gids nog aan het voorbereiden. Kom snel terug of neem rechtstreeks contact op als je iets nodig hebt.",
+    guideUnavailableTitle: "Deze gids is niet meer beschikbaar",
+    guideUnavailableMessage:
+      "De gastheer heeft deze gids verwijderd. Denk je dat dit een vergissing is, neem dan rechtstreeks contact op.",
+    linkExpiredTitle: "Deze link is niet meer beschikbaar",
+    linkExpiredMessage:
+      "De verblijfsperiode die bij deze link hoort is voorbij. Heb je toegang tot de gids nodig, neem dan contact op met je gastheer.",
   },
 } as const;
 
