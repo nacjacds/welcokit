@@ -359,7 +359,11 @@
         "qrError": "Couldn't generate the QR code",
         "printQr": "Print QR",
         "qrAlt": "Guide QR code",
-        "downloadPng": "Download PNG"
+        "downloadPng": "Download PNG",
+        "premiumPdf": "Premium guide as PDF",
+        "premiumPdfGenerating": "Generating PDF...",
+        "premiumPdfError": "Could not generate the PDF",
+        "premiumPdfHint": "The first time, or after editing the guide, it takes a few seconds."
       },
       "guestLinks": {
         "generateLink": "Create a personalized link for your guest",

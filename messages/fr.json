@@ -359,7 +359,11 @@
         "qrError": "Impossible de générer le QR code",
         "printQr": "Imprimer le QR",
         "qrAlt": "QR code du guide",
-        "downloadPng": "Télécharger en PNG"
+        "downloadPng": "Télécharger en PNG",
+        "premiumPdf": "Guide premium en PDF",
+        "premiumPdfGenerating": "Génération du PDF...",
+        "premiumPdfError": "Impossible de générer le PDF",
+        "premiumPdfHint": "La première fois, ou après une modification du guide, cela prend quelques secondes."
       },
       "guestLinks": {
         "generateLink": "Créer un lien personnalisé pour ton voyageur",

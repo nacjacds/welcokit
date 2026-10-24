@@ -55,6 +55,14 @@ export default async function EditPropertyPage({
     .eq("property_id", id)
     .order("created_at", { ascending: false });
 
+  // Languages this property has a premium guide in (RLS: owner only) — drives
+  // the PDF download buttons in the publish panel.
+  const { data: premiumGuides } = await supabase
+    .from("guides" as never)
+    .select("language")
+    .eq("property_id", id)
+    .order("language");
+
   const { data: profile } = await supabase
     .from("profiles")
     .select("plan")
@@ -81,6 +89,7 @@ export default async function EditPropertyPage({
       recommendationQuotaByCategory={quotaByCategory}
       upgradePlanLabel={upgradePlan?.label ?? null}
       initialGuestLinks={guestLinks ?? []}
+      premiumGuideLanguages={((premiumGuides ?? []) as unknown as { language: string }[]).map((g) => g.language)}
     />
   );
 }

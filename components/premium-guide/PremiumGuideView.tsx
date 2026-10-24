@@ -12,6 +12,7 @@ import { ContactCard, EmergencyMainBlock, EmergencyNumbersBlock } from "./Emerge
 import { GuideIcon } from "./GuideIcon";
 import { Html } from "./Html";
 import { PlaceCard } from "./PlaceCard";
+import { PrintModeProvider, useImgLoading } from "./PrintMode";
 import "./premium-guide.css";
 
 const FLAGS: Record<GuideLocale, string> = { es: "🇪🇸", en: "🇬🇧", fr: "🇫🇷", it: "🇮🇹", pt: "🇵🇹", nl: "🇳🇱" };
@@ -59,15 +60,15 @@ function LanguagePills({
 function Cover({ guide }: { guide: PremiumGuide }) {
   const { cover, property } = guide;
   return (
-    <header>
+    <header className="pg-cover">
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src={cover.hero_image}
         alt=""
-        className="block max-h-[68vh] w-full object-cover object-bottom"
+        className="pg-cover-img block max-h-[68vh] w-full object-cover object-bottom"
         fetchPriority="high"
       />
-      <div className="mx-auto max-w-3xl px-5 pb-10 pt-6 sm:px-8">
+      <div className="pg-cover-text mx-auto max-w-3xl px-5 pb-10 pt-6 sm:px-8">
         <p className="pg-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-[var(--pg-terra)]">{cover.kicker}</p>
         <h1 className="pg-sans mt-2 text-5xl font-bold leading-[1.05] text-[var(--pg-sea)] sm:text-6xl">{cover.title}</h1>
         {cover.subtitle && (
@@ -92,11 +93,12 @@ function Cover({ guide }: { guide: PremiumGuide }) {
 }
 
 function SectionHeader({ section }: { section: PremiumSection }) {
+  const loading = useImgLoading();
   return (
     <div className="mb-5">
       {section.banner_image && (
         // eslint-disable-next-line @next/next/no-img-element
-        <img src={section.banner_image} alt="" loading="lazy" className="mb-5 block w-full rounded-2xl" />
+        <img src={section.banner_image} alt="" loading={loading} className="mb-5 block w-full rounded-2xl" />
       )}
       {section.kicker && (
         <p className="pg-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-[var(--pg-terra)]">{section.kicker}</p>
@@ -108,6 +110,7 @@ function SectionHeader({ section }: { section: PremiumSection }) {
 }
 
 function Block({ block, city }: { block: PremiumBlock; city: string }) {
+  const loading = useImgLoading();
   switch (block.type) {
     case "place":
       return <PlaceCard place={block} city={city} />;
@@ -128,13 +131,26 @@ function Block({ block, city }: { block: PremiumBlock; city: string }) {
       return (
         <figure>
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={block.src} alt="" loading="lazy" className="block w-full rounded-2xl" />
+          <img src={block.src} alt="" loading={loading} className="block w-full rounded-2xl" />
           <Html html={block.caption_html} className="mt-2 text-xs leading-snug text-neutral-600" />
         </figure>
       );
     case "signoff":
       return <p className="pg-sans pt-4 text-center text-lg font-semibold text-[var(--pg-sea)]">{block.text}</p>;
   }
+}
+
+// Printed guides can't scroll to a floating button, so each section ends
+// with a plain "back to index" link (internal PDF link).
+function PrintBackLink() {
+  const { t } = useGuideLocale();
+  return (
+    <p className="pg-print-only pg-sans mt-6 text-sm font-semibold text-[var(--pg-sea)]">
+      <a href="#index" className="underline underline-offset-2">
+        ↑ {t("premiumBackToIndex")}
+      </a>
+    </p>
+  );
 }
 
 function BlockList({ blocks, city }: { blocks: PremiumBlock[]; city: string }) {
@@ -149,9 +165,10 @@ function BlockList({ blocks, city }: { blocks: PremiumBlock[]; city: string }) {
 
 function Section({ section, city }: { section: PremiumSection; city: string }) {
   return (
-    <section id={`section-${section.id}`} className="scroll-mt-4 py-8">
+    <section id={`section-${section.id}`} className="pg-section scroll-mt-4 py-8">
       <SectionHeader section={section} />
       <BlockList blocks={section.blocks} city={city} />
+      <PrintBackLink />
     </section>
   );
 }
@@ -159,10 +176,11 @@ function Section({ section, city }: { section: PremiumSection; city: string }) {
 // The welcome section reads as: our intro text, then the clickable index,
 // then the illustrated map, then the rest ("good to know" notes...).
 function WelcomeSection({ guide, section }: { guide: PremiumGuide; section: PremiumSection }) {
+  const loading = useImgLoading();
   const [intro, ...rest] = section.blocks;
   const city = guide.property.city;
   return (
-    <section id={`section-${section.id}`} className="scroll-mt-4 py-8">
+    <section id={`section-${section.id}`} className="pg-section scroll-mt-4 py-8">
       <SectionHeader section={section} />
       {intro && <BlockList blocks={[intro]} city={city} />}
       <div className="my-6">
@@ -171,9 +189,10 @@ function WelcomeSection({ guide, section }: { guide: PremiumGuide; section: Prem
       {guide.map_image && (
         // The kit's map_note is a developer note about the PDF pipeline, not guest-facing text.
         // eslint-disable-next-line @next/next/no-img-element
-        <img src={guide.map_image} alt="" loading="lazy" className="mb-6 block w-full rounded-2xl" />
+        <img src={guide.map_image} alt="" loading={loading} className="mb-6 block w-full rounded-2xl" />
       )}
       <BlockList blocks={rest} city={city} />
+      <PrintBackLink />
     </section>
   );
 }
@@ -232,11 +251,17 @@ function BackToIndexButton() {
 
 export function PremiumGuideView({
   guides,
+  printLanguage,
 }: {
   guides: Partial<Record<GuideLocale, PremiumGuide>>;
+  // Set only by the print route: renders that one language, in print mode.
+  printLanguage?: GuideLocale;
 }) {
   const { locale, setLocale, sourceLocale, t } = useGuideLocale();
-  const guide = pickPremiumGuide(guides, locale, sourceLocale);
+  const isPrint = Boolean(printLanguage);
+  const guide = isPrint
+    ? (guides[printLanguage!] ?? null)
+    : pickPremiumGuide(guides, locale, sourceLocale);
   if (!guide) return null;
 
   const available = (Object.keys(guides) as GuideLocale[]).sort();
@@ -245,8 +270,9 @@ export function PremiumGuideView({
   const rest = guide.sections.filter((s) => s.id !== "welcome");
 
   return (
+    <PrintModeProvider value={isPrint}>
     <div className={`pg-root ${poppins.variable} ${lora.variable} relative pb-24`} style={themeVars(guide)}>
-      <LanguagePills available={available} current={guide.language} onSelect={setLocale} />
+      {!isPrint && <LanguagePills available={available} current={guide.language} onSelect={setLocale} />}
       <Cover guide={guide} />
 
       <main className="mx-auto max-w-3xl px-5 sm:px-8">
@@ -256,7 +282,7 @@ export function PremiumGuideView({
           <Section key={section.id} section={section} city={guide.property.city} />
         ))}
 
-        {whatsappDigits && (
+        {whatsappDigits && !isPrint && (
           <div className="py-8">
             <a
               href={`https://wa.me/${whatsappDigits}`}
@@ -270,7 +296,8 @@ export function PremiumGuideView({
           </div>
         )}
       </main>
-      <BackToIndexButton />
+      {!isPrint && <BackToIndexButton />}
     </div>
+    </PrintModeProvider>
   );
 }

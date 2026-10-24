@@ -59,6 +59,7 @@ export function PropertyEditor({
   recommendationQuotaByCategory,
   upgradePlanLabel,
   initialGuestLinks,
+  premiumGuideLanguages,
 }: {
   property: Property;
   initialBlocks: GuideBlock[];
@@ -67,6 +68,7 @@ export function PropertyEditor({
   recommendationQuotaByCategory: Record<string, CategoryRegenerationStatus>;
   upgradePlanLabel: string | null;
   initialGuestLinks: GuestGuideLink[];
+  premiumGuideLanguages: string[];
 }) {
   const t = useTranslations("dashboard.editor");
   const tSaveAll = useTranslations("dashboard.editor.saveAll");
@@ -308,6 +310,7 @@ export function PropertyEditor({
             guestLinks={guestLinks}
             onGuestLinksChange={setGuestLinks}
             guestLinksDefaultOpen={autoOpenGuestLinks}
+            premiumGuideLanguages={premiumGuideLanguages}
           />
 
           <AirbnbImportPanel

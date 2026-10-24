@@ -10,6 +10,7 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { ConfirmDialog } from "@/components/ui/confirm-dialog";
 import { GuestLinksDialog } from "./GuestLinksDialog";
+import { PremiumGuidePdfButtons } from "./PremiumGuidePdfButtons";
 import { toast } from "sonner";
 import { sanitizePhoneDigits, isValidPhoneNumber } from "@/lib/phone";
 import { compressImageFile } from "@/lib/compressImage";
@@ -24,6 +25,7 @@ export function PublishPanel({
   guestLinks,
   onGuestLinksChange,
   guestLinksDefaultOpen,
+  premiumGuideLanguages = [],
 }: {
   property: Property;
   isPublished: boolean;
@@ -31,6 +33,7 @@ export function PublishPanel({
   guestLinks: GuestGuideLink[];
   onGuestLinksChange: (links: GuestGuideLink[]) => void;
   guestLinksDefaultOpen?: boolean;
+  premiumGuideLanguages?: string[];
 }) {
   const t = useTranslations("dashboard.editor.publish");
   const tCommon = useTranslations("dashboard.common");
@@ -321,6 +324,12 @@ export function PublishPanel({
         >
           {t("printQr")}
         </Button>
+
+        <PremiumGuidePdfButtons
+          propertyId={property.id}
+          slug={property.slug}
+          languages={premiumGuideLanguages}
+        />
 
         {qrDataUrl && (
           <div className="flex flex-col items-center gap-2 rounded-lg border border-border bg-card p-3">

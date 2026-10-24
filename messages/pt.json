@@ -359,7 +359,11 @@
         "qrError": "Não foi possível gerar o código QR",
         "printQr": "Imprimir QR",
         "qrAlt": "Código QR do guia",
-        "downloadPng": "Descarregar PNG"
+        "downloadPng": "Descarregar PNG",
+        "premiumPdf": "Guia premium em PDF",
+        "premiumPdfGenerating": "A gerar o PDF...",
+        "premiumPdfError": "Não foi possível gerar o PDF",
+        "premiumPdfHint": "Da primeira vez, ou depois de editar o guia, demora alguns segundos."
       },
       "guestLinks": {
         "generateLink": "Criar um link personalizado para o teu hóspede",

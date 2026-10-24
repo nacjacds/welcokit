@@ -45,3 +45,88 @@
   border-radius: 12px;
   box-shadow: 3px 4px 0 var(--pg-sand2);
 }
+
+/* ---- Printable PDF (A4) ------------------------------------------------
+   Rendered by Playwright from app/guide/[slug]/print (lib/premium-guide/pdf.ts).
+   Page size, margins and the footer (property name + page number) are set by
+   page.pdf() (header/footer, preferCSSPageSize); @page below sets the margins
+   in CSS so the sand background also fills them. */
+.pg-print-only {
+  display: none;
+}
+
+@page {
+  size: A4;
+  margin: 12mm 12mm 18mm;
+}
+
+@media print {
+  * {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  /* White paper: Chromium never paints a background into the page margins,
+     so a sand page would show as a framed rectangle. Cards get a sand
+     border instead, and it saves the host's ink. */
+  html,
+  body,
+  .pg-root {
+    background: #fff;
+  }
+  .pg-card,
+  .pg-root nav a {
+    border: 1px solid var(--pg-sand2);
+  }
+  /* Drop everything the guide layout adds around the page: WhatsApp pill,
+     "Powered by" footer, editor/admin shortcuts, toaster. */
+  body > *:not(:has(.pg-root)) {
+    display: none !important;
+  }
+
+  .pg-print-only {
+    display: block;
+  }
+  .pg-root {
+    min-height: 0;
+    padding-bottom: 0;
+  }
+  .pg-root main {
+    max-width: none;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .pg-cover {
+    break-after: page;
+    padding-top: 8mm;
+  }
+  .pg-cover .pg-cover-img {
+    max-height: 150mm;
+    border-radius: 18px;
+  }
+  .pg-cover .pg-cover-text {
+    padding-left: 4mm;
+    padding-right: 4mm;
+  }
+
+  /* Every section starts on its own page. */
+  .pg-section {
+    break-before: page;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+
+  .pg-card,
+  .pg-root aside,
+  .pg-root figure,
+  .pg-root nav a {
+    break-inside: avoid;
+  }
+  .pg-root h2,
+  .pg-root h3 {
+    break-after: avoid;
+  }
+  .pg-root a {
+    color: inherit;
+  }
+}

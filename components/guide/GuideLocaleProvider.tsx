@@ -30,23 +30,28 @@ export function GuideLocaleProvider({
   propertyId,
   sourceLocale,
   stayDates = null,
+  forcedLocale,
   children,
 }: {
   propertyId: string;
   sourceLocale: GuideLocale;
   stayDates?: { checkin: string; checkout: string } | null;
+  // Pins the language regardless of the guest's stored preference — used by
+  // the printable PDF, which must come out in the language it was asked for.
+  forcedLocale?: GuideLocale;
   children: React.ReactNode;
 }) {
   // Seeded from the property's own source language rather than hardcoded
   // "es" — an English-authored property should default to showing English
   // to a first-time guest. A stored per-browser preference (below) still
   // overrides this on repeat visits, to any property.
-  const [locale, setLocaleState] = useState<GuideLocale>(sourceLocale);
+  const [locale, setLocaleState] = useState<GuideLocale>(forcedLocale ?? sourceLocale);
 
   useEffect(() => {
+    if (forcedLocale) return;
     const stored = window.localStorage.getItem(STORAGE_KEY);
     if (stored && isGuideLocale(stored)) setLocaleState(stored);
-  }, []);
+  }, [forcedLocale]);
 
   function setLocale(next: GuideLocale) {
     setLocaleState(next);
