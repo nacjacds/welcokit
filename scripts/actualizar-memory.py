@@ -15,7 +15,7 @@ INICIO, FIN = "<!-- AUTO:INICIO -->", "<!-- AUTO:FIN -->"
 
 def git(*args: str) -> str:
     try:
-        return subprocess.run(["git", *args], cwd=RAIZ, capture_output=True, text=True, timeout=10).stdout.strip()
+        return subprocess.run(["git", *args], cwd=RAIZ, capture_output=True, text=True, timeout=10).stdout.rstrip()
     except Exception:
         return ""
 

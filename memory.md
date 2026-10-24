@@ -14,11 +14,12 @@ Estado vivo del proyecto para retomar el trabajo sin repasar el historial. Léel
 <!-- AUTO:INICIO -->
 _Actualizado automáticamente: 2026-10-24 23:58_
 
-- **Rama:** `main` · commits locales sin subir a origin/main: **1**
-- **Cambios sin commitear:** 5 (claude/settings.json, CLAUDE.md, memory.md, n8n/workflows/supabase-keepalive.json, scripts/actualizar-memory.py)
+- **Rama:** `main` · commits locales sin subir a origin/main: **2**
+- **Cambios sin commitear:** 2 (scripts/actualizar-memory.py, n8n/workflows/supabase-keepalive.json)
 - **Última migración en el repo:** `20260723090000_premium_guides.sql`
 
 **Últimos commits:**
+- `b4f9992` 2026-10-24 — Add auto-updated memory.md (Stop hook) and project memory rule
 - `30ba344` 2026-10-24 — Premium guides phase 1: schema migration, nl guide locale, import script
 - `22d946e` 2026-08-15 — Make guest-link button more visible with brand orange styling and clearer copy in 5 locales
 - `eadde43` 2026-07-22 — Fix block creation broken for fr/it/pt locales; make standard block titles derive dynamically instead of freezing at creation
@@ -33,7 +34,6 @@ _Actualizado automáticamente: 2026-10-24 23:58_
 - `0bd4ec6` 2026-07-20 — Fix: translate WiFi QR alt text (was hardcoded in Spanish for all locales)
 - `0fe9fea` 2026-07-20 — i18n Fase 3: translate guide public UI strings to French, Italian, Portuguese
 - `14d2435` 2026-07-18 — i18n Fase 1: expand dashboard/landing/auth locale architecture to support fr/it/pt
-- `7dc9fc7` 2026-07-18 — i18n Fase 0: expand guide locale architecture from binary es/en to array-based (es/en/fr/it/pt)
 <!-- AUTO:FIN -->
 
 ## Guía premium (`welcokit.guide/v1`) — en curso
