@@ -10,13 +10,16 @@ export function LandingFinalCta() {
 
   return (
     <section className="relative isolate overflow-hidden bg-[#1B4F72]">
-      <div aria-hidden="true" className="lp-grid-dark pointer-events-none absolute inset-0 -z-10" />
-      <Parallax distance={70} className="pointer-events-none absolute -top-20 -left-20 -z-10">
+      {/* Decoration fades in from the top edge so it blends into the wave divider above. */}
+      <div aria-hidden="true" className="lp-fade-top pointer-events-none absolute inset-0 -z-10">
+      <div aria-hidden="true" className="lp-grid-dark pointer-events-none absolute inset-0 " />
+      <Parallax distance={70} className="pointer-events-none absolute top-10 -left-20 ">
         <div className="lp-orb size-[360px] bg-[#3B8BC2]/40" />
       </Parallax>
-      <Parallax distance={-60} className="pointer-events-none absolute -right-24 -bottom-24 -z-10">
+      <Parallax distance={-60} className="pointer-events-none absolute -right-24 -bottom-24 ">
         <div className="lp-orb size-[340px] bg-white/15" />
       </Parallax>
+      </div>
       <div className="mx-auto max-w-2xl px-4 py-16 text-center sm:px-6 sm:py-24">
         <Reveal>
           {/* eslint-disable-next-line @next/next/no-img-element */}

@@ -23,6 +23,11 @@
   mask-image: radial-gradient(ellipse 80% 90% at 50% 50%, #000 20%, transparent 75%);
 }
 
+.lp-fade-top {
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 160px);
+  mask-image: linear-gradient(to bottom, transparent 0, #000 160px);
+}
+
 .lp-orb {
   position: absolute;
   border-radius: 9999px;

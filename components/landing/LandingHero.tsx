@@ -22,17 +22,14 @@ export function LandingHero() {
 
   return (
     <section className="relative isolate overflow-hidden bg-[#FAFAF8] pt-12 sm:pt-16">
-      {/* Atmosphere: faint grid + two blurred brand glows that drift at
-          different speeds as you scroll (parallax depth). */}
+      {/* Atmosphere: faint grid + one blurred orange glow that drifts as
+          you scroll (parallax depth). */}
       <div aria-hidden="true" className="lp-grid pointer-events-none absolute inset-0 -z-10" />
       <Parallax distance={90} className="pointer-events-none absolute -top-24 -right-24 -z-10">
         <div className="lp-orb size-[420px] bg-[#FF4200]/20" />
       </Parallax>
-      <Parallax distance={-70} className="pointer-events-none absolute top-40 -left-32 -z-10">
-        <div className="lp-orb size-[380px] bg-[#1B4F72]/20" />
-      </Parallax>
 
-      <div className="mx-auto grid max-w-6xl items-center gap-14 px-4 pb-16 sm:px-6 sm:pb-24 lg:grid-cols-[1.1fr_0.9fr] lg:gap-8">
+      <div className="mx-auto grid max-w-6xl items-center gap-14 px-4 pb-24 sm:px-6 sm:pb-32 lg:grid-cols-[1.1fr_0.9fr] lg:gap-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -85,7 +82,7 @@ export function LandingHero() {
               {/* Soft glow under the card. */}
               <div
                 aria-hidden="true"
-                className="absolute inset-x-6 top-10 -bottom-6 -z-10 rounded-[2rem] bg-[#1B4F72]/25 blur-3xl"
+                className="absolute inset-x-8 top-16 bottom-2 -z-10 rounded-[2rem] bg-[#1B4F72]/15 blur-2xl"
               />
               <GuidePreviewCard />
               {CHIPS.map(({ icon: Icon, className, color, delay }) => (
