@@ -41,7 +41,7 @@ Web app SaaS para anfitriones de alojamientos turísticos (Airbnb, Vrbo, Booking
 - **Tipografía:** Playfair Display (serif, títulos) vía `next/font/google` + Inter (sans, cuerpo)
 - **Idioma del panel del anfitrión:** `next-intl` + cookie `NEXT_LOCALE` (`lib/locale.ts`) — sistema independiente del idioma de la guía pública (`lib/guide-i18n.ts` + `GuideLocaleProvider`), no comparten cookie ni lógica
 - **PDF imprimible:** `@react-pdf/renderer` (sin dependencia de Chromium/Puppeteer — corre bien en el contenedor de EasyPanel) para el "Imprimir QR" del editor
-- **Deploy:** OVH VPS con EasyPanel — **tanto el frontend (welcokit.com) como n8n (ia.neurodatos.com) se despliegan ahí**, no en Vercel. El push a `main` en GitHub **no dispara un deploy automático**: hay que entrar al servicio en EasyPanel y pulsar "Deploy" manualmente después de cada `git push`
+- **Deploy:** OVH VPS con EasyPanel — **tanto el frontend (welcokit.com) como n8n (ia.neurodatos.com) se despliegan ahí**, no en Vercel. Auto deploy activado en EasyPanel (desde 2026-10-25): cada `git push` a `main` redespliega solo, así que no se hace push sin comprobar antes que compila
 - **Pagos:** Stripe (suscripciones mensuales)
 - **Email transaccional:** Resend
 
@@ -736,9 +736,9 @@ npx supabase db reset   # Aplica todas las migrations
 # Aplicar migraciones nuevas al proyecto remoto
 npx supabase db push
 
-# Deploy — EasyPanel NO redespliega solo con el push a GitHub:
+# Deploy — EasyPanel redespliega solo con cada push a main (auto deploy activado):
 # 1. git push origin main
-# 2. Entrar al panel de EasyPanel del servicio "welcokit" y pulsar "Deploy" a mano
+# 2. (Si hiciera falta forzarlo) panel de EasyPanel, servicio "welcokit", botón "Deploy"
 ```
 
 ---
@@ -784,4 +784,4 @@ npx supabase db push
 - Google Places API tiene coste por llamada — implementar caché en Supabase (TTL 30 días por localización)
 - El número de WhatsApp del bot es el de YCloud — el anfitrión no da su número personal al bot, solo para el botón directo (`whatsapp_number` en `properties`)
 - La caché de traducciones (`content_translations`) es por propiedad+bloque, no global entre anfitriones (a diferencia de la antigua `translations_cache`) — cada propiedad genera su propia traducción una vez, sin TTL
-- El deploy a producción **no es automático** — un `git push` a `main` no dispara nada por sí solo, hay que entrar a EasyPanel y pulsar "Deploy" (ver "Comandos de desarrollo")
+- El deploy a producción **es automático** desde 2026-10-25: un `git push` a `main` redespliega en EasyPanel (ver "Comandos de desarrollo"). Las migraciones de Supabase NO se aplican solas

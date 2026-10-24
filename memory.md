@@ -14,11 +14,12 @@ Estado vivo del proyecto para retomar el trabajo sin repasar el historial. Léel
 <!-- AUTO:INICIO -->
 _Actualizado automáticamente: 2026-10-24 23:59_
 
-- **Rama:** `main` · commits locales sin subir a origin/main: **3**
-- **Cambios sin commitear:** 2 (memory.md, n8n/workflows/supabase-keepalive.json)
+- **Rama:** `main` · commits locales sin subir a origin/main: **0**
+- **Cambios sin commitear:** 1 (memory.md)
 - **Última migración en el repo:** `20260723090000_premium_guides.sql`
 
 **Últimos commits:**
+- `d35e2da` 2026-10-24 — Add n8n workflow to keep Supabase project alive
 - `4147da9` 2026-10-24 — Fix memory script dropping first char of status paths
 - `b4f9992` 2026-10-24 — Add auto-updated memory.md (Stop hook) and project memory rule
 - `30ba344` 2026-10-24 — Premium guides phase 1: schema migration, nl guide locale, import script
@@ -33,7 +34,6 @@ _Actualizado automáticamente: 2026-10-24 23:59_
 - `2acb5c6` 2026-07-20 — i18n Fase 5: translate legal pages to EN/FR/IT/PT, unify address, localize footer links
 - `1a0b7bf` 2026-07-20 — i18n Fase 4: translate dashboard/landing/auth messages to French, Italian, Portuguese
 - `0bd4ec6` 2026-07-20 — Fix: translate WiFi QR alt text (was hardcoded in Spanish for all locales)
-- `0fe9fea` 2026-07-20 — i18n Fase 3: translate guide public UI strings to French, Italian, Portuguese
 <!-- AUTO:FIN -->
 
 ## Guía premium (`welcokit.guide/v1`) — en curso
@@ -61,6 +61,10 @@ Integración de las guías ilustradas hechas a mano (Sol Muralla, Carihuela Cris
 - Lugares sin geocodificar (`lat/lng/google_place_id` vacíos): `--geocode` necesita `GOOGLE_MAPS_SERVER_KEY` en `.env.local`.
 - El panel del anfitrión NO tiene `nl` (`AppLocale`, `messages/`, CHECK de `profiles.dashboard_locale`); solo la guía pública.
 - Añadir `nl` a `ALL_GUIDE_LOCALES` hace que cada guardado lance una traducción más a Haiku.
+
+## Deploy
+
+- Auto deploy activado en EasyPanel (2026-10-25): cada push a `main` redespliega. Las migraciones de Supabase se aplican aparte.
 
 ## n8n
 
