@@ -12,13 +12,14 @@ Estado vivo del proyecto para retomar el trabajo sin repasar el historial. Léel
 ## Estado automático
 
 <!-- AUTO:INICIO -->
-_Actualizado automáticamente: 2026-10-24 23:58_
+_Actualizado automáticamente: 2026-10-24 23:59_
 
-- **Rama:** `main` · commits locales sin subir a origin/main: **2**
-- **Cambios sin commitear:** 2 (scripts/actualizar-memory.py, n8n/workflows/supabase-keepalive.json)
+- **Rama:** `main` · commits locales sin subir a origin/main: **3**
+- **Cambios sin commitear:** 2 (memory.md, n8n/workflows/supabase-keepalive.json)
 - **Última migración en el repo:** `20260723090000_premium_guides.sql`
 
 **Últimos commits:**
+- `4147da9` 2026-10-24 — Fix memory script dropping first char of status paths
 - `b4f9992` 2026-10-24 — Add auto-updated memory.md (Stop hook) and project memory rule
 - `30ba344` 2026-10-24 — Premium guides phase 1: schema migration, nl guide locale, import script
 - `22d946e` 2026-08-15 — Make guest-link button more visible with brand orange styling and clearer copy in 5 locales
@@ -33,7 +34,6 @@ _Actualizado automáticamente: 2026-10-24 23:58_
 - `1a0b7bf` 2026-07-20 — i18n Fase 4: translate dashboard/landing/auth messages to French, Italian, Portuguese
 - `0bd4ec6` 2026-07-20 — Fix: translate WiFi QR alt text (was hardcoded in Spanish for all locales)
 - `0fe9fea` 2026-07-20 — i18n Fase 3: translate guide public UI strings to French, Italian, Portuguese
-- `14d2435` 2026-07-18 — i18n Fase 1: expand dashboard/landing/auth locale architecture to support fr/it/pt
 <!-- AUTO:FIN -->
 
 ## Guía premium (`welcokit.guide/v1`) — en curso
