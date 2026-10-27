@@ -43,7 +43,18 @@ export function LandingFooter() {
           </Link>
         </div>
       </div>
-      <p className="mt-6 text-center text-xs text-[#6B6B67]">{t("copyright", { year })}</p>
+      <p className="mt-6 flex flex-wrap items-center justify-center gap-x-3 text-center text-xs text-[#6B6B67]">
+        <span>{t("copyright", { year })}</span>
+        <span aria-hidden="true" className="h-3 w-px bg-[#DDD8CC]" />
+        <a
+          href="https://neurodatos.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="hover:underline"
+        >
+          Agencia Neurodatos
+        </a>
+      </p>
     </footer>
   );
 }
